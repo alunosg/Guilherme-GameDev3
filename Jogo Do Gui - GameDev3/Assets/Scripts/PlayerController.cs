@@ -9,7 +9,13 @@ public class PlayerController : MonoBehaviour
     public Collider col;
     public float speed = 10;
     public float jumpforce = 10;
+    public float turningSpeedX = 2;
+    public float turningSpeedY = 2;
+    public float minRotX = -30;
+    public float maxRotX = 75;
     public LayerMask floorlayer;
+
+    public Transform camTarget;
 
     private Vector2 moveInput;
 
@@ -19,9 +25,28 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        rig.linearVelocity = new(moveInput.x * speed, rig.linearVelocity.y, moveInput.y * speed);
+        Vector3 vX = moveInput.x * speed * transform.right;
+        Vector3 vY = rig.linearVelocity.y * Vector3.up;
+        Vector3 vZ = moveInput.y * speed * transform.forward;
+        rig.linearVelocity = vX + vY + vZ;
     }
 
+    public void Look(InputAction.CallbackContext context)
+    {
+        Vector3 angles = new(0, transform.eulerAngles.y, 0);
+        angles.y += context.ReadValue<Vector2>().x * turningSpeedX;
+        Quaternion rot = Quaternion.Euler(angles);
+        rig.MoveRotation(rot);
+
+        float camX = camTarget.localEulerAngles.x;
+        camX -= context.ReadValue<Vector2>().y * turningSpeedY;
+
+        if (camX > 180f) camX -= 360f;
+        else if (camX < -180f) camX += 360f;
+
+        camX = Mathf.Clamp(camX, minRotX, maxRotX);
+        camTarget.localEulerAngles = new(camX, 0f, 0f);
+    }
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -42,4 +67,4 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-}
+} //       fixed update linha retirada: rig.linearVelocity = new(moveInput.x * speed, rig.linearVelocity.y, moveInput.y * speed);
