@@ -3,8 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Adm\\Desktop\\Guilherme GameDev3\\Guilherme-GameDev3\\Jogo Do Gui - GameDev3\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{22CF43D0-E16B-2265-C9F4-E75A76C2DAE4}|Assembly-CSharp.csproj|c:\\users\\adm\\desktop\\guilherme gamedev3\\guilherme-gamedev3\\jogo do gui - gamedev3\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{22CF43D0-E16B-2265-C9F4-E75A76C2DAE4}|Assembly-CSharp.csproj|C:\\Users\\Adm\\Desktop\\Guilherme GameDev3\\Guilherme-GameDev3\\Jogo Do Gui - GameDev3\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22CF43D0-E16B-2265-C9F4-E75A76C2DAE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22CF43D0-E16B-2265-C9F4-E75A76C2DAE4}|Assembly-CSharp.csproj|c:\\users\\adm\\desktop\\guilherme gamedev3\\guilherme-gamedev3\\jogo do gui - gamedev3\\assets\\scripts\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22CF43D0-E16B-2265-C9F4-E75A76C2DAE4}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +18,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Bullet.cs",
+              "DocumentMoniker": "C:\\Users\\Adm\\Desktop\\Guilherme GameDev3\\Guilherme-GameDev3\\Jogo Do Gui - GameDev3\\Assets\\Scripts\\Bullet.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Bullet.cs",
+              "ToolTip": "C:\\Users\\Adm\\Desktop\\Guilherme GameDev3\\Guilherme-GameDev3\\Jogo Do Gui - GameDev3\\Assets\\Scripts\\Bullet.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Bullet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-28T17:35:13.024Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +41,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController.cs",
               "ToolTip": "C:\\Users\\Adm\\Desktop\\Guilherme GameDev3\\Guilherme-GameDev3\\Jogo Do Gui - GameDev3\\Assets\\Scripts\\PlayerController.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
-              "ViewState": "AgIAACUAAAAAAAAAAAAkwEUAAACBAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAQwB0AAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-28T17:42:57.353Z",
               "EditorCaption": ""
