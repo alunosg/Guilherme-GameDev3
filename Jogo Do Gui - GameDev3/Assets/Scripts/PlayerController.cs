@@ -22,10 +22,15 @@ public class PlayerController : MonoBehaviour
     public Transform aimImage;
     public GameObject bulletPrefab;
 
+    public Transform shootTransform;
+    public GameObject shootFX;
+
     public void Shoot(InputAction.CallbackContext context)
     {
         if (context.started)
         {
+            Instantiate(shootFX, shootTransform.position, Quaternion.identity);
+
             Rigidbody b = Instantiate(bulletPrefab,
                 camTarget.position + camTarget.forward * 2,
                 camTarget.rotation).GetComponent<Bullet>().rig;
