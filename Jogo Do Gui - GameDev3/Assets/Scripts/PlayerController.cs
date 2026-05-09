@@ -1,10 +1,10 @@
-
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
-{ 
+{
     public Rigidbody rig;
     public Collider col;
     public float speed = 10;
@@ -25,9 +25,39 @@ public class PlayerController : MonoBehaviour
     public Transform shootTransform;
     public GameObject shootFX;
 
+    public Image hpImage;
+    public float hp = 5;
+    private float maxHp;
+
+    private void Start()
+    {
+        maxHp = hp;
+    }
+
+    public float deathDuration = 2;
+    private bool locked = false;
+
+    public void GetHit(float damage)
+    {
+        if (hp > 0)
+        {
+            hp -= damage;
+            hpImage.fillAmount = Mathf.Max(0, hp / maxHp);
+        }
+        if (hp <= 0)
+        {
+            locked = true;
+            moveInput = Vector3.zero;
+            rig.linearVelocity = Vector3.zero;
+            Invoke(nameof(Reload), deathDuration);
+        }
+    }
+
+    private void Reload() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!locked && context.started)
         {
             Instantiate(shootFX, shootTransform.position, Quaternion.identity);
 
@@ -41,10 +71,13 @@ public class PlayerController : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>();
+        if (!locked) moveInput = context.ReadValue<Vector2>();
     }
+
     private void FixedUpdate()
     {
+        if (locked) return;
+
         Vector3 vX = moveInput.x * speed * transform.right;
         Vector3 vY = rig.linearVelocity.y * Vector3.up;
         Vector3 vZ = moveInput.y * speed * transform.forward;
@@ -53,6 +86,8 @@ public class PlayerController : MonoBehaviour
 
     public void Look(InputAction.CallbackContext context)
     {
+        if (locked) return;
+
         Vector3 angles = new(0, transform.eulerAngles.y, 0);
         angles.y += context.ReadValue<Vector2>().x * turningSpeedX;
         Quaternion rot = Quaternion.Euler(angles);
@@ -69,7 +104,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!locked && context.started)
         {
             Vector3 p1 = new(col.bounds.max.x, col.bounds.max.y, col.bounds.max.z);
             Vector3 p2 = new(col.bounds.min.x, col.bounds.max.y, col.bounds.min.z);
@@ -87,4 +122,4 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-} //       fixed update linha retirada: rig.linearVelocity = new(moveInput.x * speed, rig.linearVelocity.y, moveInput.y * speed);
+}
