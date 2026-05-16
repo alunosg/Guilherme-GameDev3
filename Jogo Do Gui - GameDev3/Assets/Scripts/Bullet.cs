@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
 
 {
     public Rigidbody rig;
+    public float damage = 1;
     public float speed = 50;
     public float lifeTime = 5;
     public GameObject hitParticle;
@@ -20,11 +21,13 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<PlayerController>().GetHit(damage);
             Instantiate(hitParticle, transform.position, Quaternion.identity);
             //Hit Player
         }
         else if (other.CompareTag("Enemy"))
         {
+            other.GetComponent<EnemyController>().GetHit(damage);
             Instantiate(hitParticle, transform.position, Quaternion.identity);
             //Hit Enemy
         }
