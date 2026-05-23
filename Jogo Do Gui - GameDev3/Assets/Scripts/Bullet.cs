@@ -1,8 +1,6 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
-
 {
     public Rigidbody rig;
     public float damage = 1;
@@ -10,6 +8,9 @@ public class Bullet : MonoBehaviour
     public float lifeTime = 5;
     public GameObject hitParticle;
     public GameObject destroyParticle;
+
+    public bool hitPlayer = false;
+    public bool hitEnemy = true;
 
     private void Start()
     {
@@ -19,25 +20,21 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (hitPlayer && other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().GetHit(damage);
             Instantiate(hitParticle, transform.position, Quaternion.identity);
-            //Hit Player
         }
-        else if (other.CompareTag("Enemy"))
+        if (hitEnemy && other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyController>().GetHit(damage);
             Instantiate(hitParticle, transform.position, Quaternion.identity);
-            //Hit Enemy
         }
 
         AutoDestroy();
-
     }
 
     private void AutoDestroy()
-
     {
         Instantiate(destroyParticle, transform.position, Quaternion.identity);
         Destroy(gameObject);

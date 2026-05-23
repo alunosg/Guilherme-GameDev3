@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 1481623341702309356}
   - component: {fileID: 906556986646938084}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -250,3 +250,5 @@ MonoBehaviour:
   lifeTime: 5
   hitParticle: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
   destroyParticle: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
+  hitPlayer: 1
+  hitEnemy: 0

@@ -9,12 +9,11 @@ public class PlayerController : MonoBehaviour
     public Collider col;
     public float speed = 10;
     public float jumpforce = 10;
-    public float turningSpeedX = 2;
-    public float turningSpeedY = 2;
+    public float turningSpeedX = 1;
+    public float turningSpeedY = 1;
     public float minRotX = -30;
     public float maxRotX = 75;
     public LayerMask floorlayer;
-
     public Transform camTarget;
 
     private Vector2 moveInput;
@@ -25,31 +24,40 @@ public class PlayerController : MonoBehaviour
     public Transform shootTransform;
     public GameObject shootFX;
 
+    public AudioSource audioSource;
+    public AudioClip attackSFX, hitSFX, deathSFX;
+
     public Image hpImage;
     public float hp = 5;
     private float maxHp;
+
+    public float deathDuration = 2;
+    private bool locked = false;
 
     private void Start()
     {
         maxHp = hp;
     }
 
-    public float deathDuration = 2;
-    private bool locked = false;
-
     public void GetHit(float damage)
     {
-        if (hp > 0)
+        if(hp > 0)
         {
             hp -= damage;
             hpImage.fillAmount = Mathf.Max(0, hp / maxHp);
-        }
-        if (hp <= 0)
-        {
-            locked = true;
-            moveInput = Vector3.zero;
-            rig.linearVelocity = Vector3.zero;
-            Invoke(nameof(Reload), deathDuration);
+
+            if (hp <= 0)
+            {
+                audioSource.PlayOneShot(deathSFX);
+                locked = true;
+                moveInput = Vector3.zero;
+                rig.linearVelocity = Vector3.zero;
+                Invoke(nameof(Reload), deathDuration);
+            }
+            else
+            {
+                audioSource.PlayOneShot(hitSFX);
+            }
         }
     }
 
@@ -59,10 +67,12 @@ public class PlayerController : MonoBehaviour
     {
         if (!locked && context.started)
         {
-            Instantiate(shootFX, shootTransform.position, Quaternion.identity);
+            audioSource.PlayOneShot(attackSFX);
+
+            Instantiate(shootFX, shootTransform);
 
             Rigidbody b = Instantiate(bulletPrefab,
-                camTarget.position + camTarget.forward * 2,
+                camTarget.position + camTarget.forward * 1,
                 camTarget.rotation).GetComponent<Bullet>().rig;
 
             b.linearVelocity = rig.linearVelocity;
@@ -72,16 +82,6 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         if (!locked) moveInput = context.ReadValue<Vector2>();
-    }
-
-    private void FixedUpdate()
-    {
-        if (locked) return;
-
-        Vector3 vX = moveInput.x * speed * transform.right;
-        Vector3 vY = rig.linearVelocity.y * Vector3.up;
-        Vector3 vZ = moveInput.y * speed * transform.forward;
-        rig.linearVelocity = vX + vY + vZ;
     }
 
     public void Look(InputAction.CallbackContext context)
@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
         camX = Mathf.Clamp(camX, minRotX, maxRotX);
         camTarget.localEulerAngles = new(camX, 0f, 0f);
     }
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (!locked && context.started)
@@ -121,5 +122,15 @@ public class PlayerController : MonoBehaviour
                 rig.linearVelocity = new(rig.linearVelocity.x, jumpforce, rig.linearVelocity.z);
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (locked) return;
+
+        Vector3 vX = moveInput.x * speed * transform.right;
+        Vector3 vY = rig.linearVelocity.y * Vector3.up;
+        Vector3 vZ = moveInput.y * speed * transform.forward;
+        rig.linearVelocity = vX + vY + vZ;
     }
 }
