@@ -69,11 +69,10 @@ public class PlayerController : MonoBehaviour
         {
             audioSource.PlayOneShot(attackSFX);
 
-            Instantiate(shootFX, shootTransform);
+            Instantiate(shootFX, shootTransform.position, shootTransform.rotation);
 
             Rigidbody b = Instantiate(bulletPrefab,
-                camTarget.position + camTarget.forward * 1,
-                camTarget.rotation).GetComponent<Bullet>().rig;
+                shootTransform.position, shootTransform.rotation).GetComponent<Bullet>().rig;
 
             b.linearVelocity = rig.linearVelocity;
         }
