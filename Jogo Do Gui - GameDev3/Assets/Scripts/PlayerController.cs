@@ -69,7 +69,8 @@ public class PlayerController : MonoBehaviour
         {
             audioSource.PlayOneShot(attackSFX);
 
-            Instantiate(shootFX, shootTransform.position, shootTransform.rotation);
+            Transform s = Instantiate(shootFX, shootTransform.position, shootTransform.rotation).transform;
+            s.SetParent(shootTransform);
 
             Rigidbody b = Instantiate(bulletPrefab,
                 shootTransform.position, shootTransform.rotation).GetComponent<Bullet>().rig;

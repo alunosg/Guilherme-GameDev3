@@ -15,5 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Victory.unity
     guid: bcad0cd160d16094e877a1fec5f3d32c
   m_configObjects:
+    com.unity.adaptivePerformance.basic.provider_settings: {fileID: 11400000, guid: 8cfe9aad94cb5df40b4cfe00c61ce6e1, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 71ba58cffd683d44da9ac7680482491d, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: e6493f443fa881b48b435ee604a24380, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0
